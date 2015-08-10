@@ -17,11 +17,22 @@ parse2jquery.request(allComicUrl, function($) {
   console.log('共有：' + $('a[onmouseout="hidethumb();"]').length + '漫畫');
 });
 
+var num = 0;
+
 // 每十分鐘執行一次
 var scheduler_job = new CronJob({
   cronTime: '*/10 * * * * *',
   onTick: function() {
-    console.log((new Date()).getTime());
+    var going = true;
+    var start_time = (new Date()).getTime();
+    var p_num = num++;
+    console.log(p_num + ' start!');
+    while (going) {
+      if ((new Date()).getTime() - start_time > 5000) {
+        going = false;
+        console.log(p_num + ' stop!');
+      }
+    }
   },
   start: false
 });
